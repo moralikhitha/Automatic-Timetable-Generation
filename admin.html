@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div>Smart Timetable System</div>
+      <a href="/logout" class="logout-link">Logout</a>
+    </header>
+    <div class="container">
+      <h1>🗓️ Admin Panel – Timetable Manager</h1>
+
+      <section class="form-section">
+        <h2>Branch & Semester</h2>
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" placeholder="e.g. CSE" />
+
+        <label for="semester">Semester:</label>
+        <input type="number" id="semester" placeholder="e.g. 2" />
+      </section>
+
+      <section class="subject-controls">
+        <div class="btn-row">
+          <button onclick="loadSubjects()">📂 Load Subjects</button>
+          <button onclick="addSubjectRow()">➕ Add Subject</button>
+        </div>
+      </section>
+
+      <section class="subject-table-section">
+        <table id="subjectTable">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Hours/Week</th>
+              <th>Professor</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="action-buttons">
+        <div class="btn-row">
+          <button onclick="saveSubjects()">💾 Save</button>
+          <button onclick="generateTimetable()">⚡ Generate Timetable</button>
+        </div>
+      </section>
+
+      <section class="reset-section">
+        <button onclick="resetTimetable()" class="reset-btn">
+          🧹 Reset Timetable
+        </button>
+      </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Timetable Grid – Horizontal</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2>📅 Timetable – {{ branch }} (Semester {{ semester }})</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            {% set slot_order = [] %} {% for row in rows %} {% if row.time_slot
+            not in slot_order %} {% set _ = slot_order.append(row.time_slot) %}
+            {% endif %} {% endfor %} {% for slot in slot_order %}
+            <th>{{ slot }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+          %}
+          <tr>
+            <td><strong>{{ day }}</strong></td>
+            {% for slot in slot_order %}
+            <td>
+              {% for row in rows %} {% if row.day == day and row.time_slot ==
+              slot %}
+              <strong>{{ row.subject }}</strong><br /><small
+                >{{ row.professor_name }}</small
+              >
+              {% endif %} {% endfor %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <br />
+      <a href="/admin">⬅ Back to Admin</a>
+    </div>
+  </body>
+</html>

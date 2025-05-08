@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Login</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div>Smart Timetable System</div>
+      <a href="/logout" class="logout-link">Logout</a>
+    </header>
+    <div class="container">
+      <h2>📘 Student Timetable Viewer</h2>
+      <form action="/student_timetable" method="get">
+        <label for="branch">Branch:</label>
+        <input
+          type="text"
+          id="branch"
+          name="branch"
+          placeholder="e.g. CSE"
+          required
+        />
+
+        <label for="semester">Semester:</label>
+        <input
+          type="number"
+          id="semester"
+          name="semester"
+          placeholder="e.g. 4"
+          required
+        />
+
+        <button type="submit">View Timetable</button>
+      </form>
+    </div>
+  </body>
+</html>

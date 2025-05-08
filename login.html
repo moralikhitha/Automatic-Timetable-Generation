@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Smart Timetable Login</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2>🔐 Smart Timetable Login</h2>
+      <form id="loginForm" action="/login" method="POST">
+        <label for="role">Select Role:</label>
+        <select id="role" name="role" onchange="updateFields()" required>
+          <option value="">-- Choose --</option>
+          <option value="admin">Admin</option>
+          <option value="faculty">Faculty</option>
+          <option value="student">Student</option>
+        </select>
+
+        <div id="dynamic-fields"></div>
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <script>
+      function updateFields() {
+        const role = document.getElementById("role").value;
+        const fields = document.getElementById("dynamic-fields");
+        fields.innerHTML = "";
+
+        if (role === "admin") {
+          fields.innerHTML = `
+          <label>Username:</label>
+          <input name="username" required />
+          <label>Password:</label>
+          <input type="password" name="password" required />
+        `;
+        }
+
+        if (role === "faculty") {
+          fields.innerHTML = `
+          <label>Full Name:</label>
+          <input name="name" placeholder="e.g. prof anusha" required />
+          <label>Branch:</label>
+          <input name="branch" placeholder="e.g. CSE" required />
+          <label>Semester:</label>
+          <input name="semester" type="number" placeholder="e.g. 4" required />
+        `;
+        }
+
+        if (role === "student") {
+          fields.innerHTML = `
+          <label>Branch:</label>
+          <input name="branch" placeholder="e.g. CSE" required />
+          <label>Semester:</label>
+          <input name="semester" type="number" placeholder="e.g. 2" required />
+        `;
+        }
+      }
+    </script>
+  </body>
+</html>

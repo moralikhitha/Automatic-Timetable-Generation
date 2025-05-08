@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ prof_name }}'s Timetable</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div>Smart Timetable System</div>
+      <a href="/logout" class="logout-link">Logout</a>
+    </header>
+    <div class="container">
+      <h2>📘 Timetable – {{ branch }} (Semester {{ semester }})</h2>
+
+      {% if not rows %}
+      <p class="error-message">No classes found for {{ prof_name }}</p>
+      {% endif %} {% set time_slots = [] %} {% for row in rows %} {% if
+      row.time_slot not in time_slots %} {% set _ =
+      time_slots.append(row.time_slot) %} {% endif %} {% endfor %}
+
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            {% for slot in time_slots %}
+            <th>{{ slot }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+          %}
+          <tr>
+            <td><strong>{{ day }}</strong></td>
+            {% for slot in time_slots %}
+            <td>
+              {% for row in rows %} {% if row.day == day and row.time_slot ==
+              slot %}
+              <strong>{{ row.subject }}</strong>
+              {% endif %} {% endfor %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <br />
+    </div>
+  </body>
+</html>
